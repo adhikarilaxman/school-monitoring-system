@@ -1,0 +1,47 @@
+# Clone your repo
+git clone https://github.com/adhikarilaxman/school-monitoring-system.git
+cd school-monitoring-system
+
+# Create directories
+mkdir -p .github/workflows
+
+# Create the workflow file
+cat > .github/workflows/deploy.yml << 'EOF'
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install frontend dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./frontend/dist
+EOF
+
+# Commit and push
+git add .github/workflows/deploy.yml
+git commit -m "Add GitHub Actions workflow for GitHub Pages deployment"
+git push origin main
