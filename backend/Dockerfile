@@ -9,7 +9,7 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 
 # Install dependencies
-RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # Stage 2: Production stage
 FROM node:18-alpine
@@ -28,12 +28,10 @@ COPY --from=builder /app/node_modules ./node_modules
 # Copy application code
 COPY . .
 
-# Create non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001 && \
-    chown -R nodejs:nodejs /app
+# Use existing node user for security
+RUN chown -R node:node /app
 
-USER nodejs
+USER node
 
 # Expose port
 EXPOSE 5000
