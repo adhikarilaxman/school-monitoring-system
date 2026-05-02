@@ -4,7 +4,7 @@ import { CheckCircle2, Download, Eye, FileText, Loader2, Plus, Send, Trash2, X }
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const defaultFields = [
   { id: 'schoolName', label: 'School Name', type: 'select', required: true },

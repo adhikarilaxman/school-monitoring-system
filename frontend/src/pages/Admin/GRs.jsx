@@ -5,7 +5,7 @@ import { Upload, FileText, Download, CheckCircle2, X, File, Eye, Loader2, Search
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const AdminGRs = () => {
   const { t } = useTranslation();

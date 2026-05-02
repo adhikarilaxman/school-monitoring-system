@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 const API_TIMEOUT = 10000; // 10 seconds
 
 export const useAuth = () => {

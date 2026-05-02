@@ -6,7 +6,7 @@ import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 const API_BASE = API_URL.replace('/api', '');
 
 const assetUrl = (value) => (value?.startsWith('/uploads') ? `${API_BASE}${value}` : value);

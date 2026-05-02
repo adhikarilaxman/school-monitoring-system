@@ -5,7 +5,7 @@ import { Plus, Calendar, MapPin, Users, CheckCircle2, X, Upload, Loader2 } from 
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+const API_URL = import.meta.env.VITE_API_URL || '/api';
 
 const AdminEvents = () => {
   const { t } = useTranslation();
