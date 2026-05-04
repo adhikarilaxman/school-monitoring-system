@@ -2,17 +2,26 @@ const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
 
+// Use /tmp for Vercel serverless, local uploads for development
+const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
+const baseUploadDir = isVercel ? '/tmp/uploads' : path.join(__dirname, '..', '..', 'uploads');
+
 // Ensure upload directories exist
 const uploadDirs = {
-  gr: path.join(__dirname, '..', '..', 'uploads', 'gr'),
-  events: path.join(__dirname, '..', '..', 'uploads', 'events'),
-  schools: path.join(__dirname, '..', '..', 'uploads', 'schools'),
-  meetings: path.join(__dirname, '..', '..', 'uploads', 'meetings'),
-  reports: path.join(__dirname, '..', '..', 'uploads', 'reports'),
-  users: path.join(__dirname, '..', '..', 'uploads', 'users'),
-  staff: path.join(__dirname, '..', '..', 'uploads', 'staff'),
-  toppers: path.join(__dirname, '..', '..', 'uploads', 'toppers')
+  gr: path.join(baseUploadDir, 'gr'),
+  events: path.join(baseUploadDir, 'events'),
+  schools: path.join(baseUploadDir, 'schools'),
+  meetings: path.join(baseUploadDir, 'meetings'),
+  reports: path.join(baseUploadDir, 'reports'),
+  users: path.join(baseUploadDir, 'users'),
+  staff: path.join(baseUploadDir, 'staff'),
+  toppers: path.join(baseUploadDir, 'toppers')
 };
+
+// Create base directory first
+if (!fs.existsSync(baseUploadDir)) {
+  fs.mkdirSync(baseUploadDir, { recursive: true });
+}
 
 Object.values(uploadDirs).forEach(dir => {
   if (!fs.existsSync(dir)) {
