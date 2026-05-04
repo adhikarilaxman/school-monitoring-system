@@ -218,6 +218,31 @@ const PublicHome = () => {
         </div>
       </section>
 
+      <section className="bg-slate-50 py-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-slate-800">Our Location</h2>
+            <p className="text-slate-500">Chhatrapati Sambhajinagar (Aurangabad), Maharashtra</p>
+          </div>
+          <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1500000!2d75.3!3d19.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdcbfeffffff%3A0x0!2sChhatrapati%20Sambhajinagar%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin"
+              width="100%"
+              height="400"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Chhatrapati Sambhajinagar Location Map"
+            ></iframe>
+          </div>
+          <div className="mt-6 flex items-center gap-3 text-slate-600">
+            <MapPin className="h-5 w-5 text-navy-500" />
+            <p className="text-sm">Chhatrapati Sambhajinagar (formerly Aurangabad), Maharashtra, India</p>
+          </div>
+        </div>
+      </section>
+
       <footer className="bg-slate-100 py-6">
         <div className="mx-auto max-w-7xl px-4 text-center sm:px-6 lg:px-8">
           <p className="text-sm text-slate-600">Scholastic Archive - Public Education Information Portal, Aurangabad, Maharashtra</p>
