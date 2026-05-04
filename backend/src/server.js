@@ -61,10 +61,13 @@ app.use((err, req, res, next) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(`📁 Upload directory: ${path.join(__dirname, '..', 'uploads')}`);
-  console.log(`🔗 API Base URL: http://localhost:${PORT}/api`);
-});
+// Only listen to port if not running on Vercel
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on port ${PORT}`);
+    console.log(`📁 Upload directory: ${path.join(__dirname, '..', 'uploads')}`);
+    console.log(`🔗 API Base URL: http://localhost:${PORT}/api`);
+  });
+}
 
 module.exports = app;
