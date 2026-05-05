@@ -9,6 +9,8 @@ export const LanguageProvider = ({ children }) => {
 
   useEffect(() => {
     setCurrentLanguage(i18n.language);
+    document.body.setAttribute('data-lang', i18n.language);
+    document.documentElement.setAttribute('lang', i18n.language);
   }, [i18n.language]);
 
   const toggleLanguage = () => {
@@ -16,12 +18,16 @@ export const LanguageProvider = ({ children }) => {
     i18n.changeLanguage(newLang);
     setCurrentLanguage(newLang);
     localStorage.setItem('i18nextLng', newLang);
+    document.body.setAttribute('data-lang', newLang);
+    document.documentElement.setAttribute('lang', newLang);
   };
 
   const setLanguage = (lang) => {
     i18n.changeLanguage(lang);
     setCurrentLanguage(lang);
     localStorage.setItem('i18nextLng', lang);
+    document.body.setAttribute('data-lang', lang);
+    document.documentElement.setAttribute('lang', lang);
   };
 
   const value = {
