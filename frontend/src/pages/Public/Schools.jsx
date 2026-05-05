@@ -223,14 +223,14 @@ const PublicSchools = () => {
         </div>
 
         {/* Schools Grid */}
-        <div className="grid gap-8 lg:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
           {filteredSchools.map((school) => (
             <div 
               key={school.id} 
-              className="group bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+              className="group bg-white rounded-xl shadow-md overflow-hidden border border-slate-100 hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5"
             >
               {/* Image Section */}
-              <div className="relative h-64 overflow-hidden">
+              <div className="relative h-40 overflow-hidden">
                 {!imageErrors[school.id] && school.photo ? (
                   <img
                     src={assetUrl(school.photo)}
@@ -245,76 +245,57 @@ const PublicSchools = () => {
                 ) : (
                   <div className="h-full w-full bg-gradient-to-br from-navy-500 to-indigo-600 flex items-center justify-center">
                     <div className="text-center text-white">
-                      <Building2 className="h-16 w-16 mx-auto mb-3 opacity-80" />
-                      <p className="text-lg font-semibold">{school.name}</p>
-                      <p className="text-sm opacity-75">{school.type}</p>
+                      <Building2 className="h-10 w-10 mx-auto mb-2 opacity-80" />
+                      <p className="text-xs font-semibold">{school.name}</p>
                     </div>
                   </div>
                 )}
                 
                 {/* Type Badge */}
-                <div className="absolute top-4 left-4">
-                  <span className={`px-4 py-2 rounded-full text-xs font-bold border-2 ${getTypeColor(school.type)} bg-white/95 backdrop-blur-sm`}>
+                <div className="absolute top-2 left-2">
+                  <span className={`px-2 py-1 rounded-full text-[10px] font-bold border ${getTypeColor(school.type)} bg-white/95 backdrop-blur-sm`}>
                     {school.type}
-                  </span>
-                </div>
-                
-                {/* UDISE Badge */}
-                <div className="absolute top-4 right-4">
-                  <span className="px-3 py-1 rounded-full text-xs font-semibold bg-black/50 text-white backdrop-blur-sm">
-                    UDISE: {school.udise}
                   </span>
                 </div>
               </div>
 
               {/* Content Section */}
-              <div className="p-6">
-                <h2 className="text-2xl font-bold text-slate-800 mb-2 group-hover:text-navy-600 transition-colors">
+              <div className="p-3">
+                <h2 className="text-sm font-bold text-slate-800 mb-1 group-hover:text-navy-600 transition-colors line-clamp-2">
                   {school.name}
                 </h2>
                 
-                <div className="space-y-3 mt-4">
-                  <p className="flex items-center gap-3 text-slate-600">
-                    <div className="p-2 bg-slate-100 rounded-lg">
-                      <MapPin className="h-4 w-4 text-navy-500" />
-                    </div>
-                    <span className="text-sm">{school.address}</span>
+                <div className="space-y-1.5 mt-2">
+                  <p className="flex items-center gap-2 text-slate-600">
+                    <MapPin className="h-3 w-3 text-navy-500 flex-shrink-0" />
+                    <span className="text-[11px] truncate">{school.address}</span>
                   </p>
-                  <p className="flex items-center gap-3 text-slate-600">
-                    <div className="p-2 bg-slate-100 rounded-lg">
-                      <Phone className="h-4 w-4 text-navy-500" />
-                    </div>
-                    <span className="text-sm">{school.contact}</span>
-                  </p>
-                  <p className="flex items-center gap-3 text-slate-600">
-                    <div className="p-2 bg-slate-100 rounded-lg">
-                      <Mail className="h-4 w-4 text-navy-500" />
-                    </div>
-                    <span className="text-sm truncate">{school.email}</span>
+                  <p className="flex items-center gap-2 text-slate-600">
+                    <Phone className="h-3 w-3 text-navy-500 flex-shrink-0" />
+                    <span className="text-[11px]">{school.contact}</span>
                   </p>
                 </div>
 
                 {/* Staff Stats */}
-                <div className="mt-6 grid grid-cols-3 gap-4">
-                  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-4 text-center border border-blue-200">
-                    <p className="text-2xl font-bold text-blue-600">{school.staff?.teachers || 0}</p>
-                    <p className="text-xs text-blue-600/70 font-medium uppercase tracking-wide">Teachers</p>
+                <div className="mt-3 grid grid-cols-3 gap-1">
+                  <div className="bg-blue-50 rounded-lg p-1.5 text-center border border-blue-100">
+                    <p className="text-sm font-bold text-blue-600">{school.staff?.teachers || 0}</p>
+                    <p className="text-[9px] text-blue-600/70 font-medium uppercase">T</p>
                   </div>
-                  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-4 text-center border border-purple-200">
-                    <p className="text-2xl font-bold text-purple-600">{school.staff?.admin || 0}</p>
-                    <p className="text-xs text-purple-600/70 font-medium uppercase tracking-wide">Admin</p>
+                  <div className="bg-purple-50 rounded-lg p-1.5 text-center border border-purple-100">
+                    <p className="text-sm font-bold text-purple-600">{school.staff?.admin || 0}</p>
+                    <p className="text-[9px] text-purple-600/70 font-medium uppercase">A</p>
                   </div>
-                  <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-4 text-center border border-green-200">
-                    <p className="text-2xl font-bold text-green-600">{school.staff?.support || 0}</p>
-                    <p className="text-xs text-green-600/70 font-medium uppercase tracking-wide">Support</p>
+                  <div className="bg-green-50 rounded-lg p-1.5 text-center border border-green-100">
+                    <p className="text-sm font-bold text-green-600">{school.staff?.support || 0}</p>
+                    <p className="text-[9px] text-green-600/70 font-medium uppercase">S</p>
                   </div>
                 </div>
 
                 {/* Headmaster Section */}
-                <div className="mt-6 bg-slate-50 rounded-2xl p-4">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">Headmaster</p>
-                  <div className="flex items-center gap-4">
-                    <div className="h-14 w-14 rounded-2xl overflow-hidden bg-gradient-to-br from-navy-500 to-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                <div className="mt-3 bg-slate-50 rounded-lg p-2">
+                  <div className="flex items-center gap-2">
+                    <div className="h-8 w-8 rounded-lg overflow-hidden bg-gradient-to-br from-navy-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs flex-shrink-0">
                       {!imageErrors[`${school.id}-headmaster`] && school.headmasterPhoto ? (
                         <img
                           src={assetUrl(school.headmasterPhoto)}
@@ -326,37 +307,36 @@ const PublicSchools = () => {
                         getInitials(school.headmasterName)
                       )}
                     </div>
-                    <div>
-                      <p className="font-semibold text-slate-800">{school.headmasterName}</p>
-                      <p className="text-sm text-slate-500">{school.headmasterContact}</p>
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold text-slate-800 truncate">{school.headmasterName}</p>
+                      <p className="text-[10px] text-slate-500">{school.headmasterContact}</p>
                     </div>
                   </div>
                 </div>
 
                 {/* Facilities */}
-                <div className="mt-6">
-                  <p className="text-xs font-semibold uppercase tracking-wide text-slate-500 mb-3">Facilities</p>
-                  <div className="flex flex-wrap gap-2">
-                    {(school.facilities || []).slice(0, 5).map((facility) => (
+                <div className="mt-3">
+                  <div className="flex flex-wrap gap-1">
+                    {(school.facilities || []).slice(0, 3).map((facility) => (
                       <span 
                         key={facility} 
-                        className="px-3 py-1.5 rounded-full text-xs font-medium bg-gradient-to-r from-sky-50 to-blue-50 text-sky-700 border border-sky-200"
+                        className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-sky-50 text-sky-700 border border-sky-200"
                       >
                         {facility}
                       </span>
                     ))}
-                    {(school.facilities || []).length > 5 && (
-                      <span className="px-3 py-1.5 rounded-full text-xs font-medium bg-slate-100 text-slate-600">
-                        +{(school.facilities || []).length - 5} more
+                    {(school.facilities || []).length > 3 && (
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-medium bg-slate-100 text-slate-600">
+                        +{(school.facilities || []).length - 3}
                       </span>
                     )}
                   </div>
                 </div>
 
                 {/* Established */}
-                <div className="mt-6 pt-4 border-t border-slate-100">
-                  <p className="text-sm text-slate-500 text-center">
-                    Established in <span className="font-semibold text-slate-700">{school.established}</span>
+                <div className="mt-3 pt-2 border-t border-slate-100">
+                  <p className="text-[10px] text-slate-500 text-center">
+                    Est. <span className="font-semibold text-slate-700">{school.established}</span>
                   </p>
                 </div>
               </div>
