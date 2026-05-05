@@ -1,7 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '../../context/LanguageContext';
-import { Building2, Search, Globe, Check } from 'lucide-react';
+import { Building2, Search, Globe, Check, Image as ImageIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const PublicNavbar = () => {
@@ -74,6 +74,18 @@ const PublicNavbar = () => {
               }
             >
               Toppers
+            </NavLink>
+            <NavLink
+              to="/programs"
+              className={({ isActive }) =>
+                `px-4 py-2 rounded-lg text-sm font-medium transition-all ${
+                  isActive
+                    ? 'bg-navy-50 text-navy-600'
+                    : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                }`
+              }
+            >
+              Gallery
             </NavLink>
           </div>
 

@@ -9,7 +9,12 @@ import toast from 'react-hot-toast';
 const API_URL = import.meta.env.VITE_API_URL || '/api';
 const API_BASE = API_URL.replace('/api', '');
 
-const assetUrl = (value) => (value?.startsWith('/uploads') ? `${API_BASE}${value}` : value);
+const assetUrl = (value) => {
+  if (!value) return null;
+  if (value?.startsWith('/uploads')) return `${API_BASE}${value}`;
+  if (value?.startsWith('http')) return value;
+  return value;
+};
 
 const PublicHome = () => {
   const { t } = useTranslation();
@@ -84,7 +89,7 @@ const PublicHome = () => {
             </p>
             <div className="mt-8 flex flex-wrap gap-4">
               <NavLink to="/schools" className="rounded-xl bg-teal-500 px-6 py-3 font-semibold text-white hover:bg-teal-600">
-                {t('public.viewDirectories')}
+                View All Schools
               </NavLink>
               <NavLink to="/programs" className="rounded-xl bg-white/10 px-6 py-3 font-semibold text-white hover:bg-white/20">
                 View Programs
