@@ -12,6 +12,7 @@ const API_BASE = API_URL.replace('/api', '');
 const assetUrl = (value) => {
   if (!value) return null;
   if (value?.startsWith('/uploads')) return `${API_BASE}${value}`;
+  if (value?.startsWith('/schools')) return value;
   if (value?.startsWith('http')) return value;
   return value;
 };
