@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Building2, ChevronRight, GraduationCap, Image as ImageIcon, MapPin, Star, TrendingUp, Users } from 'lucide-react';
+import { Building2, ChevronLeft, ChevronRight, GraduationCap, Image as ImageIcon, MapPin, Star, TrendingUp, Users } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import LoadingSpinner from '../../components/UI/LoadingSpinner';
 import axios from 'axios';
@@ -25,6 +25,25 @@ const PublicHome = () => {
   const [stats, setStats] = useState(null);
   const [programs, setPrograms] = useState([]);
   const [imageErrors, setImageErrors] = useState({});
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const schoolsList = [
+    { name: "St. Xavier's High School", photo: '/schools/school_1.png' },
+    { name: 'Carmel Convent High School', photo: '/schools/school_2.png' },
+    { name: 'Deogiri College School', photo: '/schools/school_3.png' },
+    { name: 'MIT Vishwashanti Gurukul School', photo: '/schools/school_4.png' },
+    { name: 'Zilla Parishad Primary School, CIDCO', photo: '/schools/school_5.png' },
+    { name: 'Shivaji High School', photo: '/schools/school_6.png' },
+    { name: 'Dr. Babasaheb Ambedkar High School', photo: '/schools/school_7.png' },
+    { name: 'Podar International School', photo: '/schools/school_8.png' },
+    { name: 'ZP Primary School, Garkheda', photo: '/schools/school_9.png' },
+    { name: 'Dnyanprabodhini School', photo: '/schools/school_10.png' },
+    { name: 'Ryan International School', photo: '/schools/school_11.png' },
+    { name: 'Government Polytechnic School', photo: '/schools/school_12.png' },
+  ];
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % schoolsList.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + schoolsList.length) % schoolsList.length);
 
   useEffect(() => {
     const loadData = async () => {
@@ -52,6 +71,14 @@ const PublicHome = () => {
 
     loadData();
   }, []);
+
+  // Auto-play carousel
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % schoolsList.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [schoolsList.length]);
 
   const heroStats = useMemo(
     () => [
@@ -227,21 +254,81 @@ const PublicHome = () => {
       <section className="bg-slate-50 py-12">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-8">
-            <h2 className="text-2xl font-bold text-slate-800">Our Location</h2>
-            <p className="text-slate-500">Chhatrapati Sambhajinagar (Aurangabad), Maharashtra</p>
+            <h2 className="text-2xl font-bold text-slate-800">Our Schools & Location</h2>
+            <p className="text-slate-500">Explore our 12 schools across Chhatrapati Sambhajinagar, Maharashtra</p>
           </div>
-          <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1500000!2d75.3!3d19.9!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bdcbfeffffff%3A0x0!2sChhatrapati%20Sambhajinagar%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1600000000000!5m2!1sen!2sin"
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Chhatrapati Sambhajinagar Location Map"
-            ></iframe>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {/* School Photo Carousel */}
+            <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white">
+              <div className="relative h-80 sm:h-96">
+                {schoolsList.map((school, index) => (
+                  <div
+                    key={index}
+                    className={`absolute inset-0 transition-opacity duration-500 ${
+                      index === currentSlide ? 'opacity-100 z-10' : 'opacity-0 z-0'
+                    }`}
+                  >
+                    <img
+                      src={school.photo}
+                      alt={school.name}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
+                      <p className="text-white font-semibold text-lg">{school.name}</p>
+                      <p className="text-white/80 text-sm">Chhatrapati Sambhajinagar</p>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Navigation Arrows */}
+                <button
+                  onClick={prevSlide}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow-lg transition-all"
+                  aria-label="Previous school"
+                >
+                  <ChevronLeft className="h-5 w-5" />
+                </button>
+                <button
+                  onClick={nextSlide}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 z-20 bg-white/90 hover:bg-white text-slate-700 rounded-full p-2 shadow-lg transition-all"
+                  aria-label="Next school"
+                >
+                  <ChevronRight className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Dot Indicators */}
+              <div className="flex justify-center gap-2 py-4 bg-white">
+                {schoolsList.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentSlide(index)}
+                    className={`h-2 rounded-full transition-all ${
+                      index === currentSlide ? 'w-6 bg-navy-500' : 'w-2 bg-slate-300 hover:bg-slate-400'
+                    }`}
+                    aria-label={`Go to school ${index + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Google Maps */}
+            <div className="rounded-2xl overflow-hidden shadow-xl border border-slate-200 h-80 sm:h-96">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d150102.8375199343!2d75.2321328!3d19.870169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m1!1s0x3bdb981f7d0f8d37:0x3c6a3b0e8f5c5a0!2sChhatrapati%20Sambhajinagar%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1600000000000"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Chhatrapati Sambhajinagar Location Map"
+              ></iframe>
+            </div>
           </div>
+
           <div className="mt-6 flex items-center gap-3 text-slate-600">
             <MapPin className="h-5 w-5 text-navy-500" />
             <p className="text-sm">Chhatrapati Sambhajinagar (formerly Aurangabad), Maharashtra, India</p>
