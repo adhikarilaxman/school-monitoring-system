@@ -12,7 +12,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Static file serving for uploads
-app.use('/uploads', express.static(path.join(__dirname, '..', 'uploads')));
+// Use /tmp for Vercel serverless, local uploads for development
+const isVercel = process.env.VERCEL || process.env.VERCEL_ENV;
+const uploadDir = isVercel ? '/tmp/uploads' : path.join(__dirname, '..', 'uploads');
+app.use('/uploads', express.static(uploadDir));
 
 // Import routes
 const authRoutes = require('./routes/auth');
@@ -65,7 +68,7 @@ app.use((err, req, res, next) => {
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on port ${PORT}`);
-    console.log(`📁 Upload directory: ${path.join(__dirname, '..', 'uploads')}`);
+    console.log(`📁 Upload directory: ${uploadDir}`);
     console.log(`🔗 API Base URL: http://localhost:${PORT}/api`);
   });
 }

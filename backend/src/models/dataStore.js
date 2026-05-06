@@ -531,7 +531,7 @@ const reportForms = [
     ],
     responses: {
       'school_1': {
-        schoolName: 'Z.P. Primary School, Khed',
+        schoolName: "St. Xavier's High School, Chhatrapati Sambhajinagar",
         programImplemented: true,
         implementationDate: '2023-10-22',
         studentsParticipated: 150,
@@ -541,7 +541,7 @@ const reportForms = [
         status: 'completed'
       },
       'school_2': {
-        schoolName: 'Modern English High School',
+        schoolName: 'Carmel Convent High School',
         programImplemented: true,
         implementationDate: '2023-10-21',
         studentsParticipated: 200,
@@ -551,7 +551,7 @@ const reportForms = [
         status: 'completed'
       },
       'school_6': {
-        schoolName: 'B.V. High School',
+        schoolName: 'Shivaji High School',
         programImplemented: true,
         implementationDate: '2023-10-20',
         studentsParticipated: 180,
