@@ -1,4 +1,4 @@
-# Scholastic Archive - School Management System
+# Scholastic Archive - School Management System 
 
 A production-ready multi-role web application for managing a school cluster system under a central authority (Kendrapramukh).
 
