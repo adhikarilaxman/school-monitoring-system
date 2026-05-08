@@ -27,23 +27,12 @@ const PublicHome = () => {
   const [imageErrors, setImageErrors] = useState({});
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  const schoolsList = [
-    { name: "St. Xavier's High School", photo: '/schools/school_1.png' },
-    { name: 'Carmel Convent High School', photo: '/schools/school_2.png' },
-    { name: 'Deogiri College School', photo: '/schools/school_3.png' },
-    { name: 'MIT Vishwashanti Gurukul School', photo: '/schools/school_4.png' },
-    { name: 'Zilla Parishad Primary School, CIDCO', photo: '/schools/school_5.png' },
-    { name: 'Shivaji High School', photo: '/schools/school_6.png' },
-    { name: 'Dr. Babasaheb Ambedkar High School', photo: '/schools/school_7.png' },
-    { name: 'Podar International School', photo: '/schools/school_8.png' },
-    { name: 'ZP Primary School, Garkheda', photo: '/schools/school_9.png' },
-    { name: 'Dnyanprabodhini School', photo: '/schools/school_10.png' },
-    { name: 'Ryan International School', photo: '/schools/school_11.png' },
-    { name: 'Government Polytechnic School', photo: '/schools/school_12.png' },
-  ];
-
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % schoolsList.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + schoolsList.length) % schoolsList.length);
+  const nextSlide = () => {
+    if (schools.length > 0) setCurrentSlide((prev) => (prev + 1) % schools.length);
+  };
+  const prevSlide = () => {
+    if (schools.length > 0) setCurrentSlide((prev) => (prev - 1 + schools.length) % schools.length);
+  };
 
   useEffect(() => {
     const loadData = async () => {
@@ -74,11 +63,12 @@ const PublicHome = () => {
 
   // Auto-play carousel
   useEffect(() => {
+    if (schools.length === 0) return;
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % schoolsList.length);
+      setCurrentSlide((prev) => (prev + 1) % schools.length);
     }, 4000);
     return () => clearInterval(timer);
-  }, [schoolsList.length]);
+  }, [schools.length]);
 
   const heroStats = useMemo(
     () => [
@@ -262,7 +252,7 @@ const PublicHome = () => {
             {/* School Photo Carousel */}
             <div className="relative rounded-2xl overflow-hidden shadow-xl border border-slate-200 bg-white">
               <div className="relative h-80 sm:h-96">
-                {schoolsList.map((school, index) => (
+                {schools.length > 0 ? schools.map((school, index) => (
                   <div
                     key={index}
                     className={`absolute inset-0 transition-opacity duration-500 ${
@@ -270,17 +260,21 @@ const PublicHome = () => {
                     }`}
                   >
                     <img
-                      src={school.photo}
+                      src={assetUrl(school.photo) || '/placeholder-school.jpg'}
                       alt={school.name}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover bg-slate-200"
                       loading="lazy"
                     />
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
                       <p className="text-white font-semibold text-lg">{school.name}</p>
-                      <p className="text-white/80 text-sm">Chhatrapati Sambhajinagar</p>
+                      <p className="text-white/80 text-sm">{school.address}</p>
                     </div>
                   </div>
-                ))}
+                )) : (
+                  <div className="flex h-full items-center justify-center bg-slate-100 text-slate-500">
+                    No schools available
+                  </div>
+                )}
 
                 {/* Navigation Arrows */}
                 <button
@@ -301,7 +295,7 @@ const PublicHome = () => {
 
               {/* Dot Indicators */}
               <div className="flex justify-center gap-2 py-4 bg-white">
-                {schoolsList.map((_, index) => (
+                {schools.map((_, index) => (
                   <button
                     key={index}
                     onClick={() => setCurrentSlide(index)}

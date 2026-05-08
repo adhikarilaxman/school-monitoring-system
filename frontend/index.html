@@ -9,13 +9,34 @@
     <style>
       body {
         font-family: 'Inter', sans-serif;
+        top: 0 !important;
       }
       body[data-lang="mr"] {
         font-family: 'Noto Sans Marathi', 'Inter', sans-serif;
       }
+      /* Hide Google Translate Banner and Tooltips */
+      .skiptranslate > iframe.skiptranslate {
+        display: none !important;
+        visibility: hidden !important;
+      }
+      #goog-gt-tt {
+        display: none !important;
+      }
     </style>
   </head>
   <body>
+    <div id="google_translate_element" style="display:none;"></div>
+    <script type="text/javascript">
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+          pageLanguage: 'en',
+          includedLanguages: 'en,mr',
+          autoDisplay: false
+        }, 'google_translate_element');
+      }
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>

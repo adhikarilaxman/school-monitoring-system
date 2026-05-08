@@ -90,7 +90,7 @@ const HMEvents = () => {
 
   const hasSubmitted = (event) => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
-    return event.submissions?.some(s => s.schoolId === user.schoolId);
+    return !!event.mySubmission || Object.keys(event.submissions || {}).includes(user.schoolId);
   };
 
   return (

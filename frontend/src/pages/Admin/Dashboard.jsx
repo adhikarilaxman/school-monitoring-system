@@ -203,12 +203,7 @@ const AdminDashboard = () => {
             </div>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {(schools.length > 0 ? schools : [
-                { id: 1, name: 'Z.P. Primary School, Khed', status: 'submitted', time: '10:30 AM' },
-                { id: 2, name: 'Modern English High School', status: 'submitted', time: 'Yesterday' },
-                { id: 3, name: 'Navbharat Vidyalaya', status: 'pending', time: 'Due 4h' },
-                { id: 4, name: "St. Mary's Convent", status: 'submitted', time: '9:15 AM' },
-              ]).map((school) => (
+              {schools.map((school) => (
                 <SchoolCard key={school.id} school={school} status={school.status} />
               ))}
             </div>
@@ -227,11 +222,7 @@ const AdminDashboard = () => {
           <div className="bg-white rounded-2xl p-6 shadow-card">
             <h3 className="font-bold text-slate-800 mb-6">{t('dashboard.recentGRs')}</h3>
             <div className="space-y-4">
-              {(grs.length > 0 ? grs.slice(0, 3) : [
-                { id: 1, title: 'Revised Curriculum 2024', uploadedAt: '2023-10-24', size: '2.4 MB' },
-                { id: 2, title: 'Mid-day Meal Safety Guidelines', uploadedAt: '2023-10-22', size: '1.1 MB' },
-                { id: 3, title: 'Exam Schedule - Sem II', uploadedAt: '2023-10-18', size: '800 KB' },
-              ]).map((gr, index) => (
+              {grs.slice(0, 3).map((gr, index) => (
                 <div key={gr.id || index} className="flex items-center gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors cursor-pointer">
                   <div className="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center">
                     <FileCheck className="w-5 h-5 text-red-500" />
@@ -269,10 +260,10 @@ const AdminDashboard = () => {
             {t('dashboard.nextEvent')}
           </span>
           <h3 className="text-xl font-bold mb-2">
-            {events[0]?.name || 'Innovative Science Fair 2023'}
+            {events[0]?.name || 'No upcoming events'}
           </h3>
           <p className="text-navy-200 text-sm mb-4">
-            {events[0]?.venue || 'District Central Hall'} • {events[0]?.startDate ? new Date(events[0].startDate).toLocaleDateString() : 'Tomorrow, 11 AM'}
+            {events[0] ? `${events[0].venue || 'TBA'} • ${new Date(events[0].startDate).toLocaleDateString()}` : 'Schedule an event'}
           </p>
           <button 
             onClick={() => navigate('/admin/events')}
