@@ -1,4 +1,4 @@
-# Scholastic Archive - School Monitoring System
+# Scholastic Archive - School Monitoring System 
 
 A production-ready multi-role web application for managing a school cluster system under a central authority.
 
